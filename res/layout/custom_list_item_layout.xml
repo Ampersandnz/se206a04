@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+	    
+    <FrameLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp" >
+        
+        <ImageView
+            android:id="@+id/contactDetail_image"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/dummy"
+            android:contentDescription="@string/hello_world" />
+        
+    </FrameLayout>
+    	
+    <TextView
+        android:id="@+id/list_item_text_name"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center" />
+        
+    <TextView
+        android:id="@+id/list_item_text_mobilePhone"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"/>
+    
+</LinearLayout>

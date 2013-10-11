@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Contacts</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="addButton">New contact</string>
+    <string name="sortButton">Sort contacts</string>
+    <string name="title_activity_contact_detail">ContactDetail</string>
+    <string name="title_activity_add_contact">AddContact</string>
+    <string name="title_activity_edit_contact">EditContact</string>
+    <string name="editContact_firstName">First name</string>
+    <string name="editContact_lastName">Last name</string>
+    <string name="editContact_mobilePhone">Mobile phone</string>
+    <string name="editContact_homePhone">Home phone</string>
+    <string name="editContact_workPhone">Work phone</string>
+    <string name="editContact_email">Email address</string>
+    <string name="editContact_address">Postal address</string>
+    <string name="editContact_dateOfBirth">Date of birth</string>
+    <string name="editContact_button_save">Save contact</string>
+    <string name="editContact_button_cancel">Cancel</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="edit_contact">Edit Contact</string> 
+
+    <string-array name="options_menu">
+        <item>Options:</item>
+        <item>Remove contact</item>
+        <item>Edit contact</item>
+    </string-array>
+    
+    <string-array name="sort_menu">
+        <item>Sort by:</item>
+        <item>First name</item>
+        <item>Last name</item>
+        <item>Phone number</item>
+    </string-array>
+    
+</resources>
