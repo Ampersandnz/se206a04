@@ -27,7 +27,6 @@ import android.widget.TextView;
  * Can be sorted by first name, last name or mobile phone number.
  */
 public class ContactsList extends Activity {
-
 	private ListView listview;
 	private Button addButton;
 	private Spinner sortSpinner;
@@ -45,7 +44,6 @@ public class ContactsList extends Activity {
 		setupListView();
 		setupAddButton();
 		setupSpinner();
-		
 	}
 
 	private void setupListView() {

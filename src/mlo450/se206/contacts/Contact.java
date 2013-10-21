@@ -10,7 +10,7 @@ import android.os.Parcelable;
  */
 public class Contact implements Parcelable {
 
-	private String _id;
+	private Long _id;
 	private String _firstName;
 	private String _lastName;
 	private String _mobilePhone;
@@ -46,7 +46,7 @@ public class Contact implements Parcelable {
 	}
 	
 	Contact(Parcel parcel) {
-		_id = parcel.readString();
+		_id = parcel.readLong();
 		_firstName = parcel.readString();
 		_lastName = parcel.readString();
 		_mobilePhone = parcel.readString();
@@ -58,7 +58,7 @@ public class Contact implements Parcelable {
 		_imagePath = parcel.readString();
 	}
 	
-	public String getId() {
+	public Long getId() {
 		return _id;
 	}
 	
@@ -96,6 +96,10 @@ public class Contact implements Parcelable {
 	
 	public String getImagePath() {
 		return _imagePath;
+	}
+	
+	public void setId(Long id) {
+		_id = id;
 	}
 	
 	public void setFirstName(String firstName) {
@@ -159,7 +163,7 @@ public class Contact implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel parcel, int arg1) {
-		parcel.writeString(_id);
+		parcel.writeLong(_id);
 		parcel.writeString(_firstName);
 		parcel.writeString(_lastName);
 		parcel.writeString(_mobilePhone);
@@ -180,4 +184,8 @@ public class Contact implements Parcelable {
 			return new Contact[size];
 		}
 	};
+	
+	public String toString() {
+		return _firstName + " " + _lastName + "\t" + _mobilePhone;
+	}
 }
