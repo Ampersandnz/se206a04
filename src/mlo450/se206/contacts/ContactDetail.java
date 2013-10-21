@@ -5,17 +5,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 /*
  * An activity displaying the details of one specific Contact.
  */
@@ -23,7 +22,7 @@ public class ContactDetail extends Activity {
 	
 	private Contact theContact;
 	private Spinner optionsSpinner;
-	private ImageView displayImage;
+	private ImageView image;
 	private TextView firstName;
 	private TextView lastName;
 	private TextView mobilePhone;
@@ -86,6 +85,10 @@ public class ContactDetail extends Activity {
             			
             			@Override
             			public void onClick(DialogInterface arg0, int arg1) {
+            				 Intent returnIntent = new Intent();
+            				 returnIntent.putExtra("id", theContact.getId());
+            				 setResult(RESULT_OK, returnIntent);     
+            				 finish();
             			}
             			
             		});
@@ -110,6 +113,12 @@ public class ContactDetail extends Activity {
 	}
 	
 	private void setupImageView() {
+		String imagePath = theContact.getImagePath();
+		if (imagePath.equals(null)) {
+			imagePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "default.jpg";
+		}
+		Bitmap bm = BitmapFactory.decodeFile(imagePath);
+		image.setImageBitmap(bm);
 	}
 	
 	@Override

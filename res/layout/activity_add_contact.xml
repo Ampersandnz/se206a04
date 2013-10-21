@@ -23,7 +23,7 @@
 	            android:id="@+id/addContact_image"
 	            android:layout_width="fill_parent"
 	            android:layout_height="fill_parent"
-	            android:src="@drawable/dummyadd"
+	            android:src="@drawable/defaultimage"
 	            android:contentDescription="@string/hello_world" />
 	        
         </FrameLayout>

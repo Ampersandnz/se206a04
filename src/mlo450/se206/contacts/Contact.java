@@ -2,7 +2,7 @@ package mlo450.se206.contacts;
 
 import java.util.Comparator;
 
-import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 /*
@@ -20,10 +20,22 @@ public class Contact implements Parcelable {
 	private String _email;
 	private String _address;
 	private String _dateOfBirth;
-	private Drawable _image;
+	private String _imagePath;
 	
 	Contact() {
-	}	
+	}		
+	
+	Contact(String dummy) {
+		_firstName = "Dummy";
+		_lastName = "Contact";
+		_mobilePhone = "mobile";
+		_homePhone = "home";
+		_workPhone = "work";
+		_email = "email@website.com";
+		_address = "address";
+		_dateOfBirth = "01-01-1990";
+		_imagePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "default.jpg";
+	}
 	
 	Contact(Parcel parcel) {
 		_id = parcel.readString();
@@ -35,6 +47,7 @@ public class Contact implements Parcelable {
 		_email = parcel.readString();
 		_address = parcel.readString();
 		_dateOfBirth = parcel.readString();
+		_imagePath = parcel.readString();
 	}
 	
 	public String getId() {
@@ -73,8 +86,44 @@ public class Contact implements Parcelable {
 		return _dateOfBirth;
 	}
 	
-	public Drawable getImage() {
-		return _image;
+	public String getImagePath() {
+		return _imagePath;
+	}
+	
+	public void setFirstName(String firstName) {
+		_firstName = firstName;
+	}
+	
+	public void setLastName(String lastName) {
+		_lastName = lastName;
+	}
+	
+	public void setMobilePhone(String mobilePhone) {
+		_mobilePhone = mobilePhone;
+	}
+	
+	public void setHomePhone(String homePhone) {
+		_homePhone = homePhone;
+	}
+	
+	public void setWorkPhone(String workPhone) {
+		_workPhone = workPhone;
+	}
+	
+	public void setEmail(String email) {
+		_email = email;
+	}
+	
+	public void setAddress(String address) {
+		_address = address;
+	}
+	
+	public void setDateOfBirth(String dateOfBirth) {
+		_dateOfBirth = dateOfBirth;
+	}
+	
+	public void setImagePath(String imagePath) {
+		_imagePath = imagePath;
 	}
 	
 	class ContactFirstNameComparator implements Comparator<Contact> {
@@ -86,6 +135,12 @@ public class Contact implements Parcelable {
 	class ContactLastNameComparator implements Comparator<Contact> {
 	    public int compare(Contact contact1, Contact contact2) {
 	        return contact1.getLastName().compareTo(contact2.getLastName());
+	    }
+	}
+	
+	class ContactMobilePhoneComparator implements Comparator<Contact> {
+	    public int compare(Contact contact1, Contact contact2) {
+	        return contact1.getMobilePhone().compareTo(contact2.getMobilePhone());
 	    }
 	}
 
@@ -105,19 +160,15 @@ public class Contact implements Parcelable {
 		parcel.writeString(_email);
 		parcel.writeString(_address);
 		parcel.writeString(_dateOfBirth);
+		parcel.writeString(_imagePath);
 	}
 	
 	public static final Parcelable.Creator<Contact> CREATOR = new Creator<Contact>() {
-
 	    public Contact createFromParcel(Parcel source) {
-	    	
 	        return new Contact(source);
-	        
 	    }
-
-		@Override
+	    
 		public Contact[] newArray(int size) {
-			// TODO Auto-generated method stub
 			return new Contact[size];
 		}
 	};

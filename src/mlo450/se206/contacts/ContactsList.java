@@ -9,6 +9,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,17 +38,18 @@ public class ContactsList extends Activity {
 		sortSpinner = (Spinner)findViewById(R.id.list_sortSpinner);
 		
 		setupListView();
-		setupButton();
+		setupAddButton();
 		setupSpinner();
 		
 	}
 
 	private void setupListView() {
 
-		displayList.add(new DummyContact("0"));
-		displayList.add(new DummyContact("1"));
-		displayList.add(new DummyContact("2"));
-		displayList.add(new DummyContact("3"));
+		displayList.add(new Contact("1"));
+		displayList.add(new Contact("2"));
+		displayList.add(new Contact("3"));
+		displayList.add(new Contact("4"));
+		displayList.add(new Contact("5"));
 		
 		ListAdapter listAdapter = new CustomListAdapter();
 		listview.setAdapter(listAdapter);
@@ -62,23 +65,22 @@ public class ContactsList extends Activity {
 				Intent intent = new Intent();
 				intent.setClass(ContactsList.this, ContactDetail.class);
 				intent.putExtra("clickedContact", selectedContact);
-				startActivity(intent);
+				startActivityForResult(intent, 1);
 			}
 			
 		});
 		
 	}
 	
-	private void setupButton() {
+	private void setupAddButton() {
 		
 		addButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				int i = displayList.size();
-				displayList.add(new DummyContact("" + i));
-				Log.i("Lab2", "There are " + displayList.size() + " items in the list.");
-		
+				displayList.add(new Contact("0"));
+				//TODO: Start activity for intent, get the Contact created by the add activity
+				
 				//Update display
 				((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
 			}
@@ -130,10 +132,13 @@ public class ContactsList extends Activity {
 			View listItemView = inflater.inflate(R.layout.custom_list_item_layout, null);
 			
 			// Access textview elements inside the view (note we must specify the parent view to look in)
+			ImageView image = (ImageView)listItemView.findViewById(R.id.list_item_image);
 			TextView name = (TextView)listItemView.findViewById(R.id.list_item_text_name);
 			TextView mobilePhone = (TextView)listItemView.findViewById(R.id.list_item_text_mobilePhone);
 			
 			// Set the text for each textview (use the position argument to find the appropriate element in the list)
+			Bitmap bm = BitmapFactory.decodeFile(displayList.get(position).getImagePath());
+			image.setImageBitmap(bm);
 			name.setText(displayList.get(position).getFirstName() + " " + displayList.get(position).getLastName());
 			mobilePhone.setText(displayList.get(position).getMobilePhone());
 			
@@ -149,5 +154,17 @@ public class ContactsList extends Activity {
 		return true;
 		
 	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		  if (requestCode == 1) {
+
+		     if(resultCode == RESULT_OK){      
+		         String idToDelete=data.getStringExtra("id");
+		         //TODO Delete the Contact with the specified id
+		         ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+		     }
+		  }
+		}
 	
 }

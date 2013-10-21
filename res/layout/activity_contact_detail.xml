@@ -17,7 +17,6 @@
             android:id="@+id/contactDetail_image"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:src="@drawable/dummy"
             android:contentDescription="@string/hello_world" />
         
     </FrameLayout>
