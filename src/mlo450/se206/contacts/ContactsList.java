@@ -3,20 +3,25 @@ package mlo450.se206.contacts;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 /*
  * The main Contacts Manager application activity. Displays a list of Contacts, as their photo, full name and mobile phone number.
  * Can be sorted by first name, last name or mobile phone number.
@@ -137,13 +142,12 @@ public class ContactsList extends Activity {
 			TextView mobilePhone = (TextView)listItemView.findViewById(R.id.list_item_text_mobilePhone);
 			
 			// Set the text for each textview (use the position argument to find the appropriate element in the list)
-			Bitmap bm = BitmapFactory.decodeFile(displayList.get(position).getImagePath());
+			Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
 			image.setImageBitmap(bm);
 			name.setText(displayList.get(position).getFirstName() + " " + displayList.get(position).getLastName());
 			mobilePhone.setText(displayList.get(position).getMobilePhone());
 			
 			return listItemView;
-			
 		}
 	}
 	

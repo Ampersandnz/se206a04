@@ -2,7 +2,6 @@ package mlo450.se206.contacts;
 
 import java.util.Comparator;
 
-import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 /*
@@ -23,7 +22,16 @@ public class Contact implements Parcelable {
 	private String _imagePath;
 	
 	Contact() {
-	}		
+		_firstName = "";
+		_lastName = "";
+		_mobilePhone = "";
+		_homePhone = "";
+		_workPhone = "";
+		_email = "";
+		_address = "";
+		_dateOfBirth = "";
+		_imagePath = "";
+	}
 	
 	Contact(String dummy) {
 		_firstName = "Dummy";
@@ -34,7 +42,7 @@ public class Contact implements Parcelable {
 		_email = "email@website.com";
 		_address = "address";
 		_dateOfBirth = "01-01-1990";
-		_imagePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "default.jpg";
+		_imagePath = "";
 	}
 	
 	Contact(Parcel parcel) {

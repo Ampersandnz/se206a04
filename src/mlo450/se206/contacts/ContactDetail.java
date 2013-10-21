@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -113,12 +113,16 @@ public class ContactDetail extends Activity {
 	}
 	
 	private void setupImageView() {
-		String imagePath = theContact.getImagePath();
-		if (imagePath.equals(null)) {
-			imagePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "default.jpg";
+		try {
+			String imagePath = theContact.getImagePath();
+			Bitmap bm = BitmapFactory.decodeFile(imagePath);
+			if (bm.equals(null)) {
+				bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
+			}
+			image.setImageBitmap(bm);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		Bitmap bm = BitmapFactory.decodeFile(imagePath);
-		image.setImageBitmap(bm);
 	}
 	
 	@Override
