@@ -83,14 +83,14 @@ public class ContactsList extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				displayList.add(new Contact("0"));
-				//TODO: Start activity for intent, get the Contact created by the add activity
-				
+				Intent intent = new Intent();
+				intent.setClass(ContactsList.this, AddContact.class);
+				startActivityForResult(intent, 0);
 				//Update display
 				((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
 			}
 			
-		});		
+		});
 		
 	}
 	
@@ -160,15 +160,22 @@ public class ContactsList extends Activity {
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-		  if (requestCode == 1) {
-
-		     if(resultCode == RESULT_OK){      
-		         String idToDelete=data.getStringExtra("id");
-		         //TODO Delete the Contact with the specified id
-		         ((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
-		     }
-		  }
+		if (requestCode == 0) {
+			if(resultCode == RESULT_OK){      
+				Contact newContact = new Contact();
+				newContact.setFirstName(data.getStringExtra("firstName"));
+				//TODO Delete the Contact with the specified id
+				((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+			}
 		}
+		
+		if (requestCode == 1) {
+			if(resultCode == RESULT_OK){      
+				String idToDelete=data.getStringExtra("id");
+				//TODO Delete the Contact with the specified id
+				((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+			}
+		}
+	}
 	
 }
