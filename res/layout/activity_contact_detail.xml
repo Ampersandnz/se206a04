@@ -77,13 +77,31 @@
 	    android:layout_weight="1"
         android:layout_gravity="center"/>	
 	
-    <Spinner
-        android:id="@+id/contactDetail_optionsSpinner"
-	    android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
 	    android:layout_height="0px"
 	    android:layout_weight="1"
-        android:layout_gravity="center"
-        android:entries="@array/options_menu"
-        android:spinnerMode="dialog" />
+	    android:orientation="horizontal"
+        android:layout_gravity="center" >
+        	
+        	<Button
+	            android:id="@+id/contactDetail_deleteContact"
+	            style="android:attr/buttonBarButtonStyle"
+	            android:layout_width="0px"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"
+	            android:text="@string/deleteButton"
+	        	android:layout_gravity="center" />
+        	
+        	<Button
+	            android:id="@+id/contactDetail_editButton"
+	            style="android:attr/buttonBarButtonStyle"
+	            android:layout_width="0px"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"
+	            android:text="@string/editButton"
+	        	android:layout_gravity="center" />
+        	
+        	</LinearLayout>
 	
 </LinearLayout>

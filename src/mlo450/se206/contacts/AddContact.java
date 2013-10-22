@@ -95,6 +95,10 @@ public class AddContact extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent returnIntent = new Intent();
+				//TODO: Save image to a file, get the path to it. Need to get the highest ID so far, increment by one to automatically name?
+				//Or pass back a path to a temp file and rename it?
+				String iP = " ";
+				
 				returnIntent.putExtra("firstName", firstName.getText().toString());
 				returnIntent.putExtra("lastName", lastName.getText().toString());
 				returnIntent.putExtra("mobilePhone", mobilePhone.getText().toString());
@@ -103,7 +107,7 @@ public class AddContact extends Activity {
 				returnIntent.putExtra("email", email.getText().toString());
 				returnIntent.putExtra("address", address.getText().toString());
 				returnIntent.putExtra("dateOfBirth", dateOfBirth.getText().toString());
-				returnIntent.putExtra("imagePath", firstName.getText().toString()); //TODO: Save image to a file and get the path
+				returnIntent.putExtra("imagePath", iP);
 				setResult(RESULT_OK,returnIntent);     
 				finish();
 			}

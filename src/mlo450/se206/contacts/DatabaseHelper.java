@@ -2,7 +2,6 @@ package mlo450.se206.contacts;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -25,10 +24,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	// Database creation sql statement
 	private static final String DATABASE_CREATE = "create table " + TABLE_COMMENTS + "(" + COLUMN_ID + 
-			" integer primary key autoincrement, " + COLUMN_FIRST_NAME + " text not null" + COLUMN_LAST_NAME + 
-			" text not null" + COLUMN_MOBILE_PHONE + " text not null" + COLUMN_HOME_PHONE + " text not null" + 
-			COLUMN_WORK_PHONE + " text not null" + COLUMN_EMAIL + " text not null" + COLUMN_ADDRESS + 
-			" text not null" + COLUMN_DATE_OF_BIRTH + " text not null" + COLUMN_IMAGE_PATH + " text not null);";
+			" integer primary key autoincrement, " + COLUMN_FIRST_NAME + " text not null, " + COLUMN_LAST_NAME + 
+			" text not null, " + COLUMN_MOBILE_PHONE + " text not null, " + COLUMN_HOME_PHONE + " text not null, " + 
+			COLUMN_WORK_PHONE + " text not null, " + COLUMN_EMAIL + " text not null, " + COLUMN_ADDRESS + 
+			" text not null, " + COLUMN_DATE_OF_BIRTH + " text not null, " + COLUMN_IMAGE_PATH + " text not null);";
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public class ContactDetail extends Activity {
 	private TextView email;
 	private TextView address;
 	private TextView dateOfBirth;
+	private Button editButton;
+	private Button deleteButton;
 	
 	
 	@Override
@@ -39,10 +42,8 @@ public class ContactDetail extends Activity {
 		Intent intent = getIntent();
 		theContact = (Contact)intent.getParcelableExtra("clickedContact");
 		
-		optionsSpinner = (Spinner)findViewById(R.id.contactDetail_optionsSpinner);
-		
 		setupTextViews();
-		setupOptionsSpinner();
+		setupButtons();
 		setupImageView();
 	}
 	
@@ -66,57 +67,49 @@ public class ContactDetail extends Activity {
 		dateOfBirth.setText(theContact.getDateOfBirth());
 	}
 	
-	private void setupOptionsSpinner() {
-		optionsSpinner = (Spinner)findViewById(R.id.contactDetail_optionsSpinner);
+	private void setupButtons() {
+		editButton = (Button)findViewById(R.id.contactDetail_editButton);
+		deleteButton = (Button)findViewById(R.id.contactDetail_deleteContact);
 		
-		optionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            	
-            	if (arg2 == 1) {
-            		//Remove contact
-            		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ContactDetail.this);
-            		
-            		dialogBuilder.setTitle("Are you sure you want to remove this contact?");
-            		dialogBuilder.setMessage("This cannot be undone!");
-            		
-            		dialogBuilder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
-            			
-            			@Override
-            			public void onClick(DialogInterface arg0, int arg1) {
-            				 Intent returnIntent = new Intent();
-            				 returnIntent.putExtra("id", theContact.getId());
-            				 setResult(RESULT_OK, returnIntent);     
-            				 finish();
-            			}
-            			
-            		});
-
-            		dialogBuilder.setPositiveButton("Cancel", null);
-            		
-            		dialogBuilder.setCancelable(true);
-            		
-            		dialogBuilder.create().show();
-            	}
-            	
-            	if (arg2 == 2) {
-            		//Edit contact
-            		//Bring up edit activity
-            	}
-            }
-
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-
+		deleteButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ContactDetail.this);
+        		
+        		dialogBuilder.setTitle("Are you sure you want to remove this contact?");
+        		dialogBuilder.setMessage("This cannot be undone!");
+        		
+        		dialogBuilder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+        			
+        			@Override
+        			public void onClick(DialogInterface arg0, int arg1) {
+        				 Intent returnIntent = new Intent();
+        				 returnIntent.putExtra("id", theContact.getId());
+        				 setResult(RESULT_OK, returnIntent);     
+        				 finish();
+        			}
+        		});
+        		
+        		dialogBuilder.setPositiveButton("Cancel", null);
+        		
+        		dialogBuilder.create().show();
+			}
+		});
+		
+		editButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+        		//Bring up edit activity
+			}
+		});
 	}
 	
 	private void setupImageView() {
 		try {
 			String imagePath = theContact.getImagePath();
 			Bitmap bm = BitmapFactory.decodeFile(imagePath);
-			if (bm.equals(null)) {
-				bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
+			if (imagePath.equals("")) {
+				bm = BitmapFactory.decodeResource(ContactDetail.this.getResources(), R.drawable.defaultimage);
 			}
 			image.setImageBitmap(bm);
 		} catch (Exception e) {

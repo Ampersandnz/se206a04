@@ -13,7 +13,14 @@ import android.widget.ImageView;
  * Editable text fields and the ability to load an image from either the phone's gallery, or the camera.
  */
 public class EditContact extends Activity {
-
+	//TODO COPY
+	//TODO MOST
+	//TODO OF
+	//TODO THIS
+	//TODO CLASS
+	//TODO FROM
+	//TODO ADD
+	//TODO CONTACT
 	private Contact theContact = new Contact();
 	private ImageView displayImage;
 	private EditText firstName;

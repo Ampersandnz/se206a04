@@ -20,13 +20,8 @@
     <string name="editContact_button_save">Save contact</string>
     <string name="editContact_button_cancel">Cancel</string>
     <string name="add_contact">Add Contact</string>
-    <string name="edit_contact">Edit Contact</string> 
-
-    <string-array name="options_menu">
-        <item>Options:</item>
-        <item>Remove contact</item>
-        <item>Edit contact</item>
-    </string-array>
+    <string name="editButton">Edit Contact</string> 
+    <string name="deleteButton">Delete Contact</string>
     
     <string-array name="sort_menu">
         <item>Sort by:</item>

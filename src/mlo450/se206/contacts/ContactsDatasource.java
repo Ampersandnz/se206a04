@@ -33,6 +33,16 @@ public class ContactsDatasource {
 
 	public Contact createContact(String firstName, String lastName, String mobilePhone, String homePhone, 
 			String workPhone, String email, String address, String dateOfBirth, String imagePath) { 
+
+		if (firstName.equals(null)) { firstName = " "; }
+		if (lastName.equals(null)) { lastName = " "; }
+		if (mobilePhone.equals(null)) { mobilePhone = " "; }
+		if (homePhone.equals(null)) { homePhone = " "; }
+		if (workPhone.equals(null)) { workPhone = " "; }
+		if (email.equals(null)) { email = " "; }
+		if (address.equals(null)) { address = " "; }
+		if (dateOfBirth.equals(null)) { dateOfBirth = " "; }
+		if (imagePath.equals(null)) { imagePath = " "; }
 		
 		ContentValues values = new ContentValues();
 	    values.put(DatabaseHelper.COLUMN_FIRST_NAME, firstName);
@@ -51,6 +61,7 @@ public class ContactsDatasource {
 	    cursor.moveToFirst();
 	    Contact newContact = cursorToContact(cursor);
 	    cursor.close();
+	    
 	    return newContact;
 	}
 

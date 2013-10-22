@@ -10,7 +10,7 @@ import android.os.Parcelable;
  */
 public class Contact implements Parcelable {
 
-	private Long _id;
+	private long _id;
 	private String _firstName;
 	private String _lastName;
 	private String _mobilePhone;
@@ -58,7 +58,7 @@ public class Contact implements Parcelable {
 		_imagePath = parcel.readString();
 	}
 	
-	public Long getId() {
+	public long getId() {
 		return _id;
 	}
 	
@@ -98,7 +98,7 @@ public class Contact implements Parcelable {
 		return _imagePath;
 	}
 	
-	public void setId(Long id) {
+	public void setId(long id) {
 		_id = id;
 	}
 	
@@ -186,6 +186,6 @@ public class Contact implements Parcelable {
 	};
 	
 	public String toString() {
-		return _firstName + " " + _lastName + "\t" + _mobilePhone;
+		return _firstName + " " + _lastName + "\t" + _mobilePhone + "ID: " + _id;
 	}
 }
