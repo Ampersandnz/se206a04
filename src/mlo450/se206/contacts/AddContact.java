@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,6 +31,7 @@ public class AddContact extends Activity {
 	private EditText email;
 	private EditText address;
 	private EditText dateOfBirth;
+	private Bitmap saveOnTurn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class AddContact extends Activity {
 	
 	private void setupImageView() {
 		displayImage = (ImageView)findViewById(R.id.addContact_image);
+		displayImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage));
 		displayImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -150,5 +154,17 @@ public class AddContact extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_contact, menu);
 		return true;
+	}
+
+	@Override
+	protected void onResume() {
+		displayImage.setImageBitmap(saveOnTurn);
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		saveOnTurn = displayImage.getDrawingCache();
+		super.onPause();
 	}
 }

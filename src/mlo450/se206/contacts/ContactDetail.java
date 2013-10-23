@@ -9,10 +9,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 /*
@@ -21,7 +19,6 @@ import android.widget.TextView;
 public class ContactDetail extends Activity {
 	
 	private Contact theContact;
-	private Spinner optionsSpinner;
 	private ImageView image;
 	private TextView firstName;
 	private TextView lastName;
@@ -123,11 +120,18 @@ public class ContactDetail extends Activity {
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 0) {
-			if(resultCode == RESULT_FIRST_USER) {
+			if(resultCode == RESULT_OK) {
 				Intent returnIntent = new Intent();
-				Contact edited = data.getParcelableExtra("editedContact");
 				returnIntent.putExtra("id", theContact.getId());
-				returnIntent.putExtra("editedContact", edited);
+				returnIntent.putExtra("firstName", data.getStringExtra("firstName"));
+				returnIntent.putExtra("lastName", data.getStringExtra("lastName"));
+				returnIntent.putExtra("mobilePhone", data.getStringExtra("mobilePhone"));
+				returnIntent.putExtra("homePhone", data.getStringExtra("homePhone"));
+				returnIntent.putExtra("workPhone", data.getStringExtra("workPhone"));
+				returnIntent.putExtra("email", data.getStringExtra("email"));
+				returnIntent.putExtra("address", data.getStringExtra("address"));
+				returnIntent.putExtra("dateOfBirth", data.getStringExtra("dateOfBirth"));
+				returnIntent.putExtra("imagePath", data.getStringExtra("imagePath"));
 				setResult(RESULT_FIRST_USER,returnIntent);
 				finish();
 			}

@@ -1,7 +1,9 @@
 package mlo450.se206.contacts;
 
 import java.util.Comparator;
+import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 /*
@@ -130,14 +132,14 @@ public class Contact implements Parcelable {
 	}
 	
 	class ContactFirstNameComparator implements Comparator<Contact> {
-	    public int compare(Contact contact1, Contact contact2) {
-	        return contact1.getFirstName().compareTo(contact2.getFirstName());
+		public int compare(Contact contact1, Contact contact2) {
+	        return contact1.getFirstName().toLowerCase().compareTo(contact2.getFirstName().toLowerCase());
 	    }
 	}
 	
 	class ContactLastNameComparator implements Comparator<Contact> {
-	    public int compare(Contact contact1, Contact contact2) {
-	        return contact1.getLastName().compareTo(contact2.getLastName());
+		public int compare(Contact contact1, Contact contact2) {
+	        return contact1.getLastName().toLowerCase().compareTo(contact2.getLastName().toLowerCase());
 	    }
 	}
 	

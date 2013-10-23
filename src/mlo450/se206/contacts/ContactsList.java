@@ -1,5 +1,6 @@
 package mlo450.se206.contacts;
 
+import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -33,6 +33,7 @@ public class ContactsList extends Activity {
 	private ContactsDatasource datasource;
 	private ArrayAdapter<Contact> adapter;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,14 +51,14 @@ public class ContactsList extends Activity {
 		setupListView();
 		setupAddButton();
 		setupSpinner();
-
-		adapter = (ArrayAdapter<Contact>) listview.getAdapter();
+		
+		
+		adapter = (ArrayAdapter<Contact>) listview.getAdapter();;
 		adapter.notifyDataSetChanged();
+		datasource.close();
 	}
 
 	private void setupListView() {
-
-
 		ListAdapter listAdapter = new CustomListAdapter();
 		listview.setAdapter(listAdapter);
 
@@ -68,7 +69,7 @@ public class ContactsList extends Activity {
 
 				Contact selectedContact = displayList.get(clickedViewPosition);
 
-				//Create a ContactDetail activity for the clicked Contact, pass it in so its fields can be displayed.
+				//Create a ContactDetail activity for the clicked Contact, and pass it in so its fields can be displayed.
 				Intent intent = new Intent();
 				intent.setClass(ContactsList.this, ContactDetail.class);
 				intent.putExtra("clickedContact", selectedContact);
@@ -99,18 +100,18 @@ public class ContactsList extends Activity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				if (arg2 == 1) {
 					//Sort by first name
-					((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
-				}
-
-				if (arg2 == 2) {
+					Collections.sort(displayList, new Contact().new ContactFirstNameComparator());
+				} else if (arg2 == 2) {
 					//Sort by last name
-					((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+					Collections.sort(displayList, new Contact().new ContactLastNameComparator());
+					adapter.notifyDataSetChanged();
+				} else if (arg2 == 3) {
+					//Sort by phone number
+					Collections.sort(displayList, new Contact().new ContactMobilePhoneComparator());
+					adapter.notifyDataSetChanged();
 				}
 
-				if (arg2 == 3) {
-					//Sort by phone number
-					((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
-				}
+				adapter.notifyDataSetChanged();
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -141,6 +142,8 @@ public class ContactsList extends Activity {
 			try {
 				String imagePath = displayList.get(position).getImagePath();
 				Bitmap bm = BitmapFactory.decodeFile(imagePath);
+
+				System.out.println(imagePath);
 				if (imagePath.equals("default")) {
 					bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
 				}
@@ -164,7 +167,8 @@ public class ContactsList extends Activity {
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		datasource.open();
-
+		Contact toRemove = null;
+		
 		if (requestCode == 0) {
 			if(resultCode == RESULT_OK) {
 				Contact contact = datasource.createContact(data.getStringExtra("firstName"), data.getStringExtra("lastName"), 
@@ -182,9 +186,10 @@ public class ContactsList extends Activity {
 				for (Contact c: displayList) {
 					if (c.getId() == (id)) {
 						datasource.deleteContact(c);
-						adapter.remove(c);
+						toRemove = c;
 					}
 				}
+				adapter.remove(toRemove);
 			}
 			
 			if(resultCode == RESULT_FIRST_USER) {      
@@ -193,9 +198,10 @@ public class ContactsList extends Activity {
 				for (Contact c: displayList) {
 					if (c.getId() == (id)) {
 						datasource.deleteContact(c);
-						adapter.remove(c);
+						toRemove = c;
 					}
 				}
+				adapter.remove(toRemove);
 				
 				Contact contact = datasource.createContact(data.getStringExtra("firstName"), data.getStringExtra("lastName"), 
 						data.getStringExtra("mobilePhone"), data.getStringExtra("homePhone"), 
@@ -208,6 +214,7 @@ public class ContactsList extends Activity {
 
 		//Update display
 		adapter.notifyDataSetChanged();
+		datasource.close();
 	}
 
 	@Override

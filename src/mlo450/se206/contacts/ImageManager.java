@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -49,14 +47,10 @@ public class ImageManager {
 			}
 		}
 
-		String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+		String timeStamp = "" + System.currentTimeMillis();
 		File mediaFile;
 		String imageName="Contact_"+ timeStamp +".jpg";
 		mediaFile = new File(imageDir.getPath() + File.separator + imageName);  
 		return mediaFile;
-	} 
-	
-	public void deleteImage(String imagePath) {
-		
 	}
 }

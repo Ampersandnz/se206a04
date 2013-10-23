@@ -31,6 +31,7 @@ public class EditContact extends Activity {
 	private EditText address;
 	private EditText dateOfBirth;
 	private Contact currentValues;
+	private Bitmap saveOnTurn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +133,7 @@ public class EditContact extends Activity {
 				displayImage.buildDrawingCache();
 				ImageManager imageManager = new ImageManager(EditContact.this);
 				String iP = imageManager.storeImage(displayImage.getDrawingCache());
-
+				
 				returnIntent.putExtra("firstName", firstName.getText().toString());
 				returnIntent.putExtra("lastName", lastName.getText().toString());
 				returnIntent.putExtra("mobilePhone", mobilePhone.getText().toString());
@@ -157,32 +158,22 @@ public class EditContact extends Activity {
 		});
 	}
 
-	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
-		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
-
-		switch(requestCode) {
-		case 0:
-			if(resultCode == RESULT_OK){  
-				Uri selectedImage = imageReturnedIntent.getData();
-				displayImage.setImageURI(selectedImage);
-			}
-
-			break; 
-
-		case 1:
-			if(resultCode == RESULT_OK){  
-				Uri selectedImage = imageReturnedIntent.getData();
-				displayImage.setImageURI(selectedImage);
-			}
-			break;
-		}
-
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_contact, menu);
 		return true;
+	}
+
+	@Override
+	protected void onResume() {
+		displayImage.setImageBitmap(saveOnTurn);
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		saveOnTurn = displayImage.getDrawingCache();
+		super.onPause();
 	}
 }
