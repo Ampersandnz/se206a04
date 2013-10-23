@@ -99,21 +99,38 @@ public class ContactDetail extends Activity {
 		editButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-        		//Bring up edit activity
+				Intent intent = new Intent();
+				intent.setClass(ContactDetail.this, EditContact.class);
+				intent.putExtra("theContact", theContact);
+				startActivityForResult(intent, 0);
 			}
 		});
 	}
 	
 	private void setupImageView() {
+		
 		try {
 			String imagePath = theContact.getImagePath();
 			Bitmap bm = BitmapFactory.decodeFile(imagePath);
-			if (imagePath.equals("")) {
+			if (imagePath.equals("default")) {
 				bm = BitmapFactory.decodeResource(ContactDetail.this.getResources(), R.drawable.defaultimage);
 			}
 			image.setImageBitmap(bm);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 0) {
+			if(resultCode == RESULT_FIRST_USER) {
+				Intent returnIntent = new Intent();
+				Contact edited = data.getParcelableExtra("editedContact");
+				returnIntent.putExtra("id", theContact.getId());
+				returnIntent.putExtra("editedContact", edited);
+				setResult(RESULT_FIRST_USER,returnIntent);
+				finish();
+			}
 		}
 	}
 	

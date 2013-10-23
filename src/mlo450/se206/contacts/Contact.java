@@ -22,15 +22,6 @@ public class Contact implements Parcelable {
 	private String _imagePath;
 	
 	Contact() {
-		_firstName = "";
-		_lastName = "";
-		_mobilePhone = "";
-		_homePhone = "";
-		_workPhone = "";
-		_email = "";
-		_address = "";
-		_dateOfBirth = "";
-		_imagePath = "";
 	}
 	
 	Contact(String dummy) {

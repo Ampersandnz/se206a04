@@ -31,129 +31,117 @@ public class ContactsList extends Activity {
 	private Spinner sortSpinner;
 	private List<Contact> displayList;
 	private ContactsDatasource datasource;
-	
+	private ArrayAdapter<Contact> adapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		datasource = new ContactsDatasource(this);
-	    datasource.open();
-	    
-	    displayList = datasource.getAllContacts();
-	    
+		datasource.open();
+
+		displayList = datasource.getAllContacts();
+
 		listview = (ListView)findViewById(R.id.list_listview);
 		addButton = (Button)findViewById(R.id.list_newcontactbutton);
 		sortSpinner = (Spinner)findViewById(R.id.list_sortSpinner);
-		
-		//saveDefaultImageToFile
+
 		setupListView();
 		setupAddButton();
 		setupSpinner();
 
-		ArrayAdapter<Contact> adapter = (ArrayAdapter<Contact>) listview.getAdapter();
-		
-		for (Contact c: displayList) {
-			datasource.deleteContact(c);
-			adapter.remove(c);
-		}
-		
-		datasource.createContact("Michael", "Lo", "0221837240", "068772159", "", "mlo450@aucklanduni.ac.nz", "729/21 Whitaker Place", "03/08/1993", "");
-		datasource.createContact("Emergency", "Services", "", "", "111", "", "", "", "");
-
+		adapter = (ArrayAdapter<Contact>) listview.getAdapter();
 		adapter.notifyDataSetChanged();
 	}
 
 	private void setupListView() {
-		
-		
+
+
 		ListAdapter listAdapter = new CustomListAdapter();
 		listview.setAdapter(listAdapter);
-		
+
 		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			
+
 			@Override
 			public void onItemClick(AdapterView<?> parentView, View clickedView, int clickedViewPosition, long id) {
-				
+
 				Contact selectedContact = displayList.get(clickedViewPosition);
-				
+
 				//Create a ContactDetail activity for the clicked Contact, pass it in so its fields can be displayed.
 				Intent intent = new Intent();
 				intent.setClass(ContactsList.this, ContactDetail.class);
 				intent.putExtra("clickedContact", selectedContact);
 				startActivityForResult(intent, 1);
 			}
-			
+
 		});
-		
+
 	}
-	
+
 	private void setupAddButton() {
-		
 		addButton.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
 				intent.setClass(ContactsList.this, AddContact.class);
 				startActivityForResult(intent, 0);
 			}
-			
+
 		});
-		
+
 	}
-	
+
 	private void setupSpinner() {
-		
 		sortSpinner = (Spinner)findViewById(R.id.list_sortSpinner);
 		sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            	if (arg2 == 1) {
-            		//Sort by first name
-            		((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
-            	}
-            	
-            	if (arg2 == 2) {
-            		//Sort by last name
-            		((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
-            	}
-            	
-            	if (arg2 == 3) {
-            		//Sort by phone number
-            		((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
-            	}
-            }
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				if (arg2 == 1) {
+					//Sort by first name
+					((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+				}
 
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
+				if (arg2 == 2) {
+					//Sort by last name
+					((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+				}
+
+				if (arg2 == 3) {
+					//Sort by phone number
+					((BaseAdapter) listview.getAdapter()).notifyDataSetChanged();
+				}
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
 	}
-	
+
 	private class CustomListAdapter extends ArrayAdapter<Contact> {
 		CustomListAdapter() {
 			super(ContactsList.this, android.R.layout.simple_list_item_1, displayList);
 		}
-		
+
 		@Override
 		public View getView (int position, View convertView, ViewGroup parent) {
-			
+
 			// Create a layout inflater to inflate our xml layout for each item in the list.
 			LayoutInflater inflater = (LayoutInflater) ContactsList.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			
+
 			// Inflate the list item layout. Keep a reference to the inflated view. Note there is no view root specified.
 			View listItemView = inflater.inflate(R.layout.custom_list_item_layout, null);
-			
+
 			// Access view elements inside the view (note we must specify the parent view to look in)
 			ImageView image = (ImageView)listItemView.findViewById(R.id.list_item_image);
 			TextView name = (TextView)listItemView.findViewById(R.id.list_item_text_name);
 			TextView mobilePhone = (TextView)listItemView.findViewById(R.id.list_item_text_mobilePhone);
-			
+
 			// Set the content for each view (use the position argument to find the appropriate element in the list)
 			try {
 				String imagePath = displayList.get(position).getImagePath();
 				Bitmap bm = BitmapFactory.decodeFile(imagePath);
-				if (imagePath.equals("")) {
+				if (imagePath.equals("default")) {
 					bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
 				}
 				image.setImageBitmap(bm);
@@ -162,22 +150,21 @@ public class ContactsList extends Activity {
 			}
 			name.setText(displayList.get(position).getFirstName() + " " + displayList.get(position).getLastName());
 			mobilePhone.setText(displayList.get(position).getMobilePhone());
-			
+
 			return listItemView;
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.contacts_list, menu);
 		return true;
 	}
-	
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		ArrayAdapter<Contact> adapter = (ArrayAdapter<Contact>) listview.getAdapter();
 		datasource.open();
-		
+
 		if (requestCode == 0) {
 			if(resultCode == RESULT_OK) {
 				Contact contact = datasource.createContact(data.getStringExtra("firstName"), data.getStringExtra("lastName"), 
@@ -188,7 +175,7 @@ public class ContactsList extends Activity {
 				adapter.add(contact);
 			}
 		}
-		
+
 		if (requestCode == 1) {
 			if(resultCode == RESULT_OK) {      
 				long id = data.getLongExtra("id", 0);
@@ -199,12 +186,30 @@ public class ContactsList extends Activity {
 					}
 				}
 			}
+			
+			if(resultCode == RESULT_FIRST_USER) {      
+				//Contact has been edited. Update database
+				long id = data.getLongExtra("id", 0);
+				for (Contact c: displayList) {
+					if (c.getId() == (id)) {
+						datasource.deleteContact(c);
+						adapter.remove(c);
+					}
+				}
+				
+				Contact contact = datasource.createContact(data.getStringExtra("firstName"), data.getStringExtra("lastName"), 
+						data.getStringExtra("mobilePhone"), data.getStringExtra("homePhone"), 
+						data.getStringExtra("workPhone"), data.getStringExtra("email"), 
+						data.getStringExtra("address"), data.getStringExtra("dateOfBirth"),
+						data.getStringExtra("imagePath"));
+				adapter.add(contact);
+			}
 		}
 
 		//Update display
 		adapter.notifyDataSetChanged();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		datasource.open();

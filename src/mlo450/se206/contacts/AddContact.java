@@ -95,9 +95,9 @@ public class AddContact extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent returnIntent = new Intent();
-				//TODO: Save image to a file, get the path to it. Need to get the highest ID so far, increment by one to automatically name?
-				//Or pass back a path to a temp file and rename it?
-				String iP = " ";
+				displayImage.buildDrawingCache();
+				ImageManager imageManager = new ImageManager(AddContact.this);
+				String iP = imageManager.storeImage(displayImage.getDrawingCache());
 				
 				returnIntent.putExtra("firstName", firstName.getText().toString());
 				returnIntent.putExtra("lastName", lastName.getText().toString());
@@ -140,9 +140,7 @@ public class AddContact extends Activity {
 			        Uri selectedImage = imageReturnedIntent.getData();
 			        displayImage.setImageURI(selectedImage);
 			    }
-			    
 			    break;
-			    
 			}
 		
 		}
@@ -153,5 +151,4 @@ public class AddContact extends Activity {
 		getMenuInflater().inflate(R.menu.add_contact, menu);
 		return true;
 	}
-
 }
