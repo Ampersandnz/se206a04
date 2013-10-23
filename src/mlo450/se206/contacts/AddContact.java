@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,17 +35,17 @@ public class AddContact extends Activity {
 	private EditText address;
 	private EditText dateOfBirth;
 	private Bitmap saveOnTurn;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_contact);
-		
+			
 		setupEditTexts();
 		setupImageView();
 		setupButtons();
 	}
-	
+
 	private void setupEditTexts() {
 		firstName = (EditText)findViewById(R.id.addContact_firstName);
 		lastName = (EditText)findViewById(R.id.addContact_lastName);
@@ -53,48 +56,50 @@ public class AddContact extends Activity {
 		address = (EditText)findViewById(R.id.addContact_address);
 		dateOfBirth = (EditText)findViewById(R.id.addContact_dateOfBirth);
 	}
-	
+
 	private void setupImageView() {
 		displayImage = (ImageView)findViewById(R.id.addContact_image);
-		displayImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage));
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
+		
+		displayImage.setImageBitmap(bm);
+
 		displayImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
 				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddContact.this);
-				
+
 				dialogBuilder.setTitle("Select image source:");
-				
+
 				dialogBuilder.setNegativeButton("Camera", new DialogInterface.OnClickListener() {
-					
+
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
 						Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 						startActivityForResult(camera, 0);
 					}
 				});
-					
+
 				dialogBuilder.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
-					
+
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
 						Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 						startActivityForResult(gallery , 1);
 					}
 				});
-				
+
 				dialogBuilder.show();
-					
+
 			}
-				
+
 		});	
 	}
-	
+
 	private void setupButtons() {
 		saveButton = (Button)findViewById(R.id.addContact_button_save);
 		cancelButton = (Button)findViewById(R.id.addContact_button_cancel);
-		
+
 		saveButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -102,7 +107,7 @@ public class AddContact extends Activity {
 				displayImage.buildDrawingCache();
 				ImageManager imageManager = new ImageManager(AddContact.this);
 				String iP = imageManager.storeImage(displayImage.getDrawingCache());
-				
+
 				returnIntent.putExtra("firstName", firstName.getText().toString());
 				returnIntent.putExtra("lastName", lastName.getText().toString());
 				returnIntent.putExtra("mobilePhone", mobilePhone.getText().toString());
@@ -126,28 +131,28 @@ public class AddContact extends Activity {
 			}
 		});
 	}
-	
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
 		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
-		
+
 		switch(requestCode) {
-			case 0:
-			    if(resultCode == RESULT_OK){  
-			        Uri selectedImage = imageReturnedIntent.getData();
-			        displayImage.setImageURI(selectedImage);
-			    }
-	
-			    break; 
-			    
-			case 1:
-			    if(resultCode == RESULT_OK){  
-			        Uri selectedImage = imageReturnedIntent.getData();
-			        displayImage.setImageURI(selectedImage);
-			    }
-			    break;
+		case 0:
+			if(resultCode == RESULT_OK){  
+				Uri selectedImage = imageReturnedIntent.getData();
+				displayImage.setImageURI(selectedImage);
 			}
-		
+
+			break; 
+
+		case 1:
+			if(resultCode == RESULT_OK){  
+				Uri selectedImage = imageReturnedIntent.getData();
+				displayImage.setImageURI(selectedImage);
+			}
+			break;
 		}
+
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

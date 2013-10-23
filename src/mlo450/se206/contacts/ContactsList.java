@@ -32,6 +32,7 @@ public class ContactsList extends Activity {
 	private List<Contact> displayList;
 	private ContactsDatasource datasource;
 	private ArrayAdapter<Contact> adapter;
+	private ImageManager imageManager;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -51,7 +52,6 @@ public class ContactsList extends Activity {
 		setupListView();
 		setupAddButton();
 		setupSpinner();
-		
 		
 		adapter = (ArrayAdapter<Contact>) listview.getAdapter();;
 		adapter.notifyDataSetChanged();
@@ -139,18 +139,15 @@ public class ContactsList extends Activity {
 			TextView mobilePhone = (TextView)listItemView.findViewById(R.id.list_item_text_mobilePhone);
 
 			// Set the content for each view (use the position argument to find the appropriate element in the list)
-			try {
-				String imagePath = displayList.get(position).getImagePath();
-				Bitmap bm = BitmapFactory.decodeFile(imagePath);
-
-				System.out.println(imagePath);
-				if (imagePath.equals("default")) {
-					bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
-				}
-				image.setImageBitmap(bm);
-			} catch (Exception e) {
-				e.printStackTrace();
+			String imagePath = displayList.get(position).getImagePath();
+			imageManager = new ImageManager(ContactsList.this);
+			Bitmap bm = imageManager.decodeSampledBitmapFromResource(getResources(), R.drawable.defaultimage, 50, 50);
+			
+			if (imagePath.equals("default")) {
+				bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
 			}
+			
+			image.setImageBitmap(bm);
 			name.setText(displayList.get(position).getFirstName() + " " + displayList.get(position).getLastName());
 			mobilePhone.setText(displayList.get(position).getMobilePhone());
 
@@ -201,6 +198,7 @@ public class ContactsList extends Activity {
 						toRemove = c;
 					}
 				}
+				
 				adapter.remove(toRemove);
 				
 				Contact contact = datasource.createContact(data.getStringExtra("firstName"), data.getStringExtra("lastName"), 
@@ -208,6 +206,7 @@ public class ContactsList extends Activity {
 						data.getStringExtra("workPhone"), data.getStringExtra("email"), 
 						data.getStringExtra("address"), data.getStringExtra("dateOfBirth"),
 						data.getStringExtra("imagePath"));
+				
 				adapter.add(contact);
 			}
 		}

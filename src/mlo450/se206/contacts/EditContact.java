@@ -76,18 +76,15 @@ public class EditContact extends Activity {
 
 	private void setupImageView() {
 		displayImage = (ImageView)findViewById(R.id.editContact_image);
-
-		try {
-			String imagePath = currentValues.getImagePath();
-			Bitmap bm = BitmapFactory.decodeFile(imagePath);
-			if (imagePath.equals("default")) {
-				bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
-			}
-			displayImage.setImageBitmap(bm);
-		} catch (Exception e) {
-			e.printStackTrace();
+		ImageManager imageManager = new ImageManager(EditContact.this);
+		String imagePath = currentValues.getImagePath();
+		Bitmap bm = imageManager.decodeSampledBitmapFromFile(imagePath, 150, 150);
+		
+		if (imagePath.equals("default")) {
+			bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
 		}
-
+		
+		displayImage.setImageBitmap(bm);
 		displayImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -133,7 +130,7 @@ public class EditContact extends Activity {
 				displayImage.buildDrawingCache();
 				ImageManager imageManager = new ImageManager(EditContact.this);
 				String iP = imageManager.storeImage(displayImage.getDrawingCache());
-				
+
 				returnIntent.putExtra("firstName", firstName.getText().toString());
 				returnIntent.putExtra("lastName", lastName.getText().toString());
 				returnIntent.putExtra("mobilePhone", mobilePhone.getText().toString());

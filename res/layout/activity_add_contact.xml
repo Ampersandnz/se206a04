@@ -8,113 +8,104 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddContact" >
-    
-	<TextView 
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-	    android:text="@string/add_contact"/>
-	
-	    <FrameLayout
-        android:layout_width="150dp"
-        android:layout_height="150dp" >
-        
-	        <ImageView
-	            android:id="@+id/addContact_image"
-	            android:layout_width="fill_parent"
-	            android:layout_height="fill_parent"
-	            android:src="@drawable/defaultimage"
-	            android:contentDescription="@string/hello_world" />
-	        
-        </FrameLayout>
-	
-    <EditText
-        android:id="@+id/addContact_firstName"
-        android:hint="@string/editContact_firstName"
-        android:inputType="textPersonName"
+
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:text="@string/add_contact" />
+
+    <ImageView
+        android:id="@+id/addContact_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:contentDescription="@string/hello_world" />
+
+    <EditText
+        android:id="@+id/addContact_firstName"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="@string/editContact_firstName"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/addContact_lastName"
-        android:hint="@string/editContact_lastName"
-        android:inputType="textPersonName"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:hint="@string/editContact_lastName"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/addContact_mobilePhone"
-        android:hint="@string/editContact_mobilePhone"
-        android:inputType="phone"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:hint="@string/editContact_mobilePhone"
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/addContact_homePhone"
-        android:hint="@string/editContact_homePhone"
-        android:inputType="phone"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:hint="@string/editContact_homePhone"
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/addContact_workPhone"
-        android:hint="@string/editContact_workPhone"
-        android:inputType="phone"
-        android:digits="true"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:digits="true"
+        android:hint="@string/editContact_workPhone"
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/addContact_email"
-        android:hint="@string/editContact_email"
-        android:inputType="textEmailAddress"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:hint="@string/editContact_email"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/addContact_address"
-        android:hint="@string/editContact_address"
-        android:inputType="textPostalAddress"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:hint="@string/editContact_address"
+        android:inputType="textPostalAddress" />
 
     <EditText
         android:id="@+id/addContact_dateOfBirth"
-        android:hint="@string/editContact_dateOfBirth"
-        android:inputType="date"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
-    
+        android:layout_weight="1"
+        android:hint="@string/editContact_dateOfBirth"
+        android:inputType="date" />
+
     <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        >
-        
-        <Button 
+        android:layout_height="wrap_content" >
+
+        <Button
             android:id="@+id/addContact_button_save"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/editContact_button_save"
-            style="?android:attr/buttonBarButtonStyle" />
-        
-        <Button 
+            android:text="@string/editContact_button_save" />
+
+        <Button
             android:id="@+id/addContact_button_cancel"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/editContact_button_cancel"
-            style="?android:attr/buttonBarButtonStyle" />
-        
+            android:text="@string/editContact_button_cancel" />
     </LinearLayout>
-        
+
 </LinearLayout>
