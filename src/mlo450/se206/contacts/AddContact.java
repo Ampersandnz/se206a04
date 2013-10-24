@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 
 /*
  * An activity for creating a single new Contact and adding it to the list.
@@ -62,10 +60,10 @@ public class AddContact extends Activity {
 
 	private void setupImageView() {
 		displayImage = (ImageView)findViewById(R.id.addContact_image);
-		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
-
+		ImageManager imageManager = new ImageManager(AddContact.this);
+		Bitmap bm = imageManager.decodeSampledBitmapFromResource(AddContact.this.getResources(), R.drawable.defaultimage, 150, 150);
 		displayImage.setImageBitmap(bm);
-
+		
 		displayImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override

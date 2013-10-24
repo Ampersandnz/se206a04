@@ -7,11 +7,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -81,19 +79,33 @@ public class EditContact extends Activity {
 		if (!a.equals("")) { address.setText(a); }
 		if (!dOB.equals("")) { dateOfBirth.setText(dOB); }
 	}
+	/*private void setupImageView() {
+		image = (ImageView)findViewById(R.id.contactDetail_image);
+		String imagePath = theContact.getImagePath();
+		Bitmap bm;
 
+		if (imagePath.equals("default")) {
+			bm = BitmapFactory.decodeResource(ContactDetail.this.getResources(), R.drawable.defaultimage);
+		} else {
+			bm = BitmapFactory.decodeFile(imagePath);
+		}
+		
+		image.setImageBitmap(bm);
+	}*/
 	private void setupImageView() {
 		displayImage = (ImageView)findViewById(R.id.editContact_image);
+		String imagePath =currentValues.getImagePath();
+		Bitmap bm;
 		ImageManager imageManager = new ImageManager(EditContact.this);
-		String imagePath = currentValues.getImagePath();
-		Bitmap bm = imageManager.decodeSampledBitmapFromFile(imagePath, 150, 150);
-		Log.d("DEBUG", imagePath);
+
 		if (imagePath.equals("default")) {
-			bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
+			bm = imageManager.decodeSampledBitmapFromResource(EditContact.this.getResources(), R.drawable.defaultimage, 150, 150);
+		} else {
+			bm = imageManager.decodeSampledBitmapFromFile(imagePath, 150, 150);
 		}
 		
 		displayImage.setImageBitmap(bm);
-
+		
 		displayImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override

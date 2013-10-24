@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -105,17 +104,18 @@ public class ContactDetail extends Activity {
 	}
 	
 	private void setupImageView() {
-		
-		try {
-			String imagePath = theContact.getImagePath();
-			Bitmap bm = BitmapFactory.decodeFile(imagePath);
-			if (imagePath.equals("default")) {
-				bm = BitmapFactory.decodeResource(ContactDetail.this.getResources(), R.drawable.defaultimage);
-			}
-			image.setImageBitmap(bm);
-		} catch (Exception e) {
-			e.printStackTrace();
+		image = (ImageView)findViewById(R.id.contactDetail_image);
+		String imagePath = theContact.getImagePath();
+		Bitmap bm;
+		ImageManager imageManager = new ImageManager(ContactDetail.this);
+
+		if (imagePath.equals("default")) {
+			bm = imageManager.decodeSampledBitmapFromResource(ContactDetail.this.getResources(), R.drawable.defaultimage, 150, 150);
+		} else {
+			bm = imageManager.decodeSampledBitmapFromFile(imagePath, 150, 150);
 		}
+		
+		image.setImageBitmap(bm);
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

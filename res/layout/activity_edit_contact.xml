@@ -15,11 +15,16 @@
         android:layout_weight="1"
         android:text="@string/editButton" />
 
-    <ImageView
-        android:id="@+id/editContact_image"
+    <FrameLayout
         android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:contentDescription="@string/hello_world" />
+        android:layout_height="150dp" >
+
+        <ImageView
+            android:id="@+id/editContact_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:contentDescription="@string/hello_world" />
+    </FrameLayout>
 
     <LinearLayout
         style="?android:attr/buttonBarStyle"
@@ -112,7 +117,8 @@
 
     <Button
         android:id="@+id/editContact_colour"
-        android:layout_width="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/colourButton" />
