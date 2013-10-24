@@ -7,11 +7,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -62,7 +65,24 @@ public class AddContact extends Activity {
 		displayImage = (ImageView)findViewById(R.id.addContact_image);
 		ImageManager imageManager = new ImageManager(AddContact.this);
 		Bitmap bm = imageManager.decodeSampledBitmapFromResource(AddContact.this.getResources(), R.drawable.defaultimage, 150, 150);
-		displayImage.setImageBitmap(bm);
+		Bitmap b = Bitmap.createBitmap( displayImage.getLayoutParams().width, displayImage.getLayoutParams().height, Bitmap.Config.ARGB_8888);                
+	     Canvas c = new Canvas(b);
+	     displayImage.layout(0, 0, displayImage.getLayoutParams().width, displayImage.getLayoutParams().height);
+	     displayImage.draw(c);
+	     displayImage.setDrawingCacheEnabled(true);
+			displayImage.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+			displayImage.layout(0, 0, displayImage.getMeasuredWidth(), displayImage.getMeasuredHeight()); 
+			displayImage.buildDrawingCache(true);
+			
+			displayImage.setImageBitmap(bm);
+		
+		bm = displayImage.getDrawingCache();
+		Log.d("DEBUG", "IsNull: " + bm.equals(null));
+		Log.d("DEBUG", bm.toString());
+		Log.d("DEBUG", "Contacts: " + bm.describeContents());
+		Log.d("DEBUG", "ByteCount: " + bm.getByteCount());
+		Log.d("DEBUG", "Height: " + bm.getHeight());
+		Log.d("DEBUG", "Width: " + bm.getWidth());
 		
 		displayImage.setOnClickListener(new View.OnClickListener() {
 
