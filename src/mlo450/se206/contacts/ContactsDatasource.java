@@ -9,6 +9,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * @author Michael Lo
+ * Class to interface between the application activities and the DatabaseHelper.
+ * Provides methods for interacting with the database.
+ */
 public class ContactsDatasource {
 
 	// Database fields

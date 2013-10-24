@@ -12,6 +12,10 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
+/**
+ * @author Michael Lo
+ * This class saves and loads Bitmaps and files for use in my activities.
+ */
 public class ImageManager {
 	private Context _c;
 
@@ -19,6 +23,11 @@ public class ImageManager {
 		_c = c;
 	}
 
+	/**
+	 * @param image (Bitmap)
+	 * @return absolute path to image (String)
+	 * Save a Bitmap to a file
+	 */
 	public String storeImage(Bitmap image) {
 		File file = createFile(image);
 		if (file == null) {
@@ -38,6 +47,10 @@ public class ImageManager {
 		return file.getAbsolutePath();
 	}
 
+	/**
+	 * @param image (Bitmap)
+	 * @return file representing the Bitmap (File)
+	 */
 	private File createFile(Bitmap image){
 		File imageDir = new File(Environment.getExternalStorageDirectory() + "/Android/data/" + 
 				_c.getApplicationContext().getPackageName() + "/ContactImages"); 
@@ -55,6 +68,13 @@ public class ImageManager {
 		return mediaFile;
 	}
 
+	/**
+	 * @param BitmapFactory Options (BitmapFactory.Options)
+	 * @param Bitmap width (int)
+	 * @param Bitmap height (int)
+	 * @return Factor by which to scale the Bitmap (int)
+	 * Calculates the factor by which to scale the bitmap, to ensure it fits in the required dimensions.
+	 */
 	private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
 		// Raw height and width of image
 		final int height = options.outHeight;
@@ -76,6 +96,13 @@ public class ImageManager {
 		return inSampleSize;
 	}
 
+	/**
+	 * @param Image path (String)
+	 * @param Bitmap width (int)
+	 * @param Bitmap height (int)
+	 * @return Scaled Bitmap (Bitmap)
+	 * Creates a Bitmap of the specified dimensions from the file at the given path.
+	 */
 	public Bitmap decodeSampledBitmapFromFile(String path, int reqWidth, int reqHeight) {
 		// First decode with inJustDecodeBounds=true to check dimensions
 		final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -90,6 +117,14 @@ public class ImageManager {
 		return BitmapFactory.decodeFile(path, options);
 	}
 
+	/**
+	 * @param Resources file (Resource)
+	 * @param id of the resource from which to create the Bitmap (int)
+	 * @param Bitmap width (int)
+	 * @param Bitmap height (int)
+	 * @return Scaled Bitmap (Bitmap)
+	 * Creates a Bitmap of the specified dimensions from the given resource, the default image.
+	 */
 	public Bitmap decodeSampledBitmapFromResource(Resources res, int resId, int reqWidth, int reqHeight) {
 
 		// First decode with inJustDecodeBounds=true to check dimensions

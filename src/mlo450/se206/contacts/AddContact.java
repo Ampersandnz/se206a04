@@ -7,11 +7,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -19,7 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-/*
+/**
+ * @author Michael Lo
  * An activity for creating a single new Contact and adding it to the list.
  * Editable text fields and the ability to load an image from either the phone's gallery, or the camera.
  */
@@ -65,25 +64,14 @@ public class AddContact extends Activity {
 		displayImage = (ImageView)findViewById(R.id.addContact_image);
 		ImageManager imageManager = new ImageManager(AddContact.this);
 		Bitmap bm = imageManager.decodeSampledBitmapFromResource(AddContact.this.getResources(), R.drawable.defaultimage, 150, 150);
-		Bitmap b = Bitmap.createBitmap( displayImage.getLayoutParams().width, displayImage.getLayoutParams().height, Bitmap.Config.ARGB_8888);                
-	     Canvas c = new Canvas(b);
-	     displayImage.layout(0, 0, displayImage.getLayoutParams().width, displayImage.getLayoutParams().height);
-	     displayImage.draw(c);
-	     displayImage.setDrawingCacheEnabled(true);
-			displayImage.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-			displayImage.layout(0, 0, displayImage.getMeasuredWidth(), displayImage.getMeasuredHeight()); 
-			displayImage.buildDrawingCache(true);
-			
-			displayImage.setImageBitmap(bm);
-		
-		bm = displayImage.getDrawingCache();
-		Log.d("DEBUG", "IsNull: " + bm.equals(null));
-		Log.d("DEBUG", bm.toString());
-		Log.d("DEBUG", "Contacts: " + bm.describeContents());
-		Log.d("DEBUG", "ByteCount: " + bm.getByteCount());
-		Log.d("DEBUG", "Height: " + bm.getHeight());
-		Log.d("DEBUG", "Width: " + bm.getWidth());
-		
+
+		displayImage.setDrawingCacheEnabled(true);
+		displayImage.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+		displayImage.layout(0, 0, displayImage.getMeasuredWidth(), displayImage.getMeasuredHeight()); 
+		displayImage.buildDrawingCache(true);
+
+		displayImage.setImageBitmap(bm);
+
 		displayImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -155,7 +143,7 @@ public class AddContact extends Activity {
 		});
 
 		colourButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// initialColor is the initially-selected color to be shown in the rectangle on the left of the arrow.
@@ -172,11 +160,11 @@ public class AddContact extends Activity {
 					public void onCancel(AmbilWarnaDialog dialog) {
 					}
 				});
-				
+
 				dialog.show();
 			}
 		});
-		
+
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 

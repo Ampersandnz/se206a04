@@ -12,8 +12,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-/*
- * An activity displaying the details of one specific Contact.
+/**
+ * @author Michael Lo
+ * An activity displaying the details of one specific Contact (The one clicked in the main view). 
+ * Buttons to delete or edit the given Contact.
  */
 public class ContactDetail extends Activity {
 	
@@ -120,6 +122,7 @@ public class ContactDetail extends Activity {
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 0) {
+			//When Contact has been edited, pass all new values straight back to main activity
 			if(resultCode == RESULT_OK) {
 				Intent returnIntent = new Intent();
 				returnIntent.putExtra("id", theContact.getId());

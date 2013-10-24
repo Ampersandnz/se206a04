@@ -17,7 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 
-/*
+/**
+ * @author Michael Lo
  * An activity for editing a single existing Contact.
  * Editable text fields and the ability to load an image from either the phone's gallery, or the camera.
  */
@@ -70,6 +71,7 @@ public class EditContact extends Activity {
 		String a = currentValues.getAddress();
 		String dOB = currentValues.getDateOfBirth();
 		
+		//If fields are set to the default value (empty), display the underlying hint text instead of the current value.
 		if (!fN.equals("")) { firstName.setText(fN); }
 		if (!lN.equals("")) { lastName.setText(lN); }
 		if (!mP.equals("")) { mobilePhone.setText(mP); }
@@ -79,19 +81,7 @@ public class EditContact extends Activity {
 		if (!a.equals("")) { address.setText(a); }
 		if (!dOB.equals("")) { dateOfBirth.setText(dOB); }
 	}
-	/*private void setupImageView() {
-		image = (ImageView)findViewById(R.id.contactDetail_image);
-		String imagePath = theContact.getImagePath();
-		Bitmap bm;
 
-		if (imagePath.equals("default")) {
-			bm = BitmapFactory.decodeResource(ContactDetail.this.getResources(), R.drawable.defaultimage);
-		} else {
-			bm = BitmapFactory.decodeFile(imagePath);
-		}
-		
-		image.setImageBitmap(bm);
-	}*/
 	private void setupImageView() {
 		displayImage = (ImageView)findViewById(R.id.editContact_image);
 		String imagePath =currentValues.getImagePath();
@@ -143,7 +133,7 @@ public class EditContact extends Activity {
 		saveButton = (Button)findViewById(R.id.editContact_button_save);
 		cancelButton = (Button)findViewById(R.id.editContact_button_cancel);
 		colourButton = (Button)findViewById(R.id.editContact_colour);
-
+		
 		saveButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -198,7 +188,8 @@ public class EditContact extends Activity {
 				dialog.show();
 			}
 		});
-		
+		colour = currentValues.getColour();
+		colourButton.setBackgroundColor(currentValues.getColour());
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 

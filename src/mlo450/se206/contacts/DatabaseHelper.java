@@ -5,6 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * @author Michael Lo
+ * Class to manage the SQLite database.
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	public static final String TABLE_CONTACTS = "contacts";

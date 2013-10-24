@@ -4,7 +4,8 @@ import java.util.Comparator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-/*
+/**
+ * @author Michael Lo
  * A Contact object. Has the fields specified in the project requirements and implements Parcelable
  * so it can be passed from one activity to another.
  */
@@ -22,6 +23,7 @@ public class Contact implements Parcelable {
 	private String _imagePath;
 	private int _colour;
 	
+	//Set default values so that none of the fields can ever be null.
 	Contact() {
 		_firstName = "";
 		_lastName = "";
@@ -34,6 +36,7 @@ public class Contact implements Parcelable {
 		_imagePath = "default";
 	}
 	
+	//Create from parcel
 	Contact(Parcel parcel) {
 		_id = parcel.readLong();
 		_firstName = parcel.readString();
@@ -159,6 +162,7 @@ public class Contact implements Parcelable {
 		return 0;
 	}
 
+	//Save to parcel
 	@Override
 	public void writeToParcel(Parcel parcel, int arg1) {
 		parcel.writeLong(_id);

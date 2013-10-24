@@ -21,7 +21,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-/*
+/**
+ * @author Michael Lo
  * The main Contacts Manager application activity. Displays a list of Contacts, as their photo, full name and mobile phone number.
  * Can be sorted by first name, last name or mobile phone number.
  */
@@ -169,6 +170,7 @@ public class ContactsList extends Activity {
 		Contact toRemove = null;
 		
 		if (requestCode == 0) {
+			//Add Contact
 			if(resultCode == RESULT_OK) {
 				Contact contact = datasource.createContact(data.getStringExtra("firstName"), data.getStringExtra("lastName"), 
 						data.getStringExtra("mobilePhone"), data.getStringExtra("homePhone"), 
@@ -180,6 +182,7 @@ public class ContactsList extends Activity {
 		}
 
 		if (requestCode == 1) {
+			//Remove Contact
 			if(resultCode == RESULT_OK) {      
 				long id = data.getLongExtra("id", 0);
 				for (Contact c: displayList) {
@@ -192,7 +195,7 @@ public class ContactsList extends Activity {
 			}
 			
 			if(resultCode == RESULT_FIRST_USER) {      
-				//Contact has been edited. Update database
+				//Contact has been edited. Update database by deleting old contact and adding new one with updated details
 				long id = data.getLongExtra("id", 0);
 				for (Contact c: displayList) {
 					if (c.getId() == (id)) {
