@@ -132,6 +132,7 @@ public class ContactDetail extends Activity {
 				returnIntent.putExtra("address", data.getStringExtra("address"));
 				returnIntent.putExtra("dateOfBirth", data.getStringExtra("dateOfBirth"));
 				returnIntent.putExtra("imagePath", data.getStringExtra("imagePath"));
+				returnIntent.putExtra("colour", data.getIntExtra("colour", 0xffffffff));
 				setResult(RESULT_FIRST_USER,returnIntent);
 				finish();
 			}

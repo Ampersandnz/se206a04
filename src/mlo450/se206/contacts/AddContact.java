@@ -1,22 +1,23 @@
 package mlo450.se206.contacts;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+
 /*
  * An activity for creating a single new Contact and adding it to the list.
  * Editable text fields and the ability to load an image from either the phone's gallery, or the camera.
@@ -26,6 +27,7 @@ public class AddContact extends Activity {
 	private ImageView displayImage;
 	private Button saveButton;
 	private Button cancelButton;
+	private Button colourButton;
 	private EditText firstName;
 	private EditText lastName;
 	private EditText mobilePhone;
@@ -35,12 +37,13 @@ public class AddContact extends Activity {
 	private EditText address;
 	private EditText dateOfBirth;
 	private Bitmap saveOnTurn;
+	private int colour;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_contact);
-			
+
 		setupEditTexts();
 		setupImageView();
 		setupButtons();
@@ -60,7 +63,7 @@ public class AddContact extends Activity {
 	private void setupImageView() {
 		displayImage = (ImageView)findViewById(R.id.addContact_image);
 		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
-		
+
 		displayImage.setImageBitmap(bm);
 
 		displayImage.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +102,7 @@ public class AddContact extends Activity {
 	private void setupButtons() {
 		saveButton = (Button)findViewById(R.id.addContact_button_save);
 		cancelButton = (Button)findViewById(R.id.addContact_button_cancel);
+		colourButton = (Button)findViewById(R.id.addContact_colour);
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -117,6 +121,7 @@ public class AddContact extends Activity {
 				returnIntent.putExtra("address", address.getText().toString());
 				returnIntent.putExtra("dateOfBirth", dateOfBirth.getText().toString());
 				returnIntent.putExtra("imagePath", iP);
+				returnIntent.putExtra("colour", colour);
 				setResult(RESULT_OK,returnIntent);     
 				finish();
 			}
@@ -130,6 +135,30 @@ public class AddContact extends Activity {
 				finish();
 			}
 		});
+
+		colourButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// initialColor is the initially-selected color to be shown in the rectangle on the left of the arrow.
+				// for example, 0xff000000 is black, 0xff0000ff is blue. Please be aware of the initial 0xff which is the alpha.
+				int initialColour = 0xff000000;
+				AmbilWarnaDialog dialog = new AmbilWarnaDialog(AddContact.this, initialColour, new OnAmbilWarnaListener() {
+					@Override
+					public void onOk(AmbilWarnaDialog dialog, int color) {
+						colour = color;
+						colourButton.setBackgroundColor(color);
+					}
+
+					@Override
+					public void onCancel(AmbilWarnaDialog dialog) {
+					}
+				});
+				
+				dialog.show();
+			}
+		});
+		
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 

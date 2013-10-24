@@ -22,20 +22,18 @@ public class Contact implements Parcelable {
 	private String _address;
 	private String _dateOfBirth;
 	private String _imagePath;
+	private int _colour;
 	
 	Contact() {
-	}
-	
-	Contact(String dummy) {
-		_firstName = "Dummy";
-		_lastName = "Contact";
-		_mobilePhone = "mobile";
-		_homePhone = "home";
-		_workPhone = "work";
-		_email = "email@website.com";
-		_address = "address";
-		_dateOfBirth = "01-01-1990";
-		_imagePath = "";
+		_firstName = "";
+		_lastName = "";
+		_mobilePhone = "";
+		_homePhone = "";
+		_workPhone = "";
+		_email = "";
+		_address = "";
+		_dateOfBirth = "";
+		_imagePath = "default";
 	}
 	
 	Contact(Parcel parcel) {
@@ -49,6 +47,7 @@ public class Contact implements Parcelable {
 		_address = parcel.readString();
 		_dateOfBirth = parcel.readString();
 		_imagePath = parcel.readString();
+		_colour = parcel.readInt();
 	}
 	
 	public long getId() {
@@ -91,6 +90,10 @@ public class Contact implements Parcelable {
 		return _imagePath;
 	}
 	
+	public int getColour() {
+		return _colour;
+	}
+	
 	public void setId(long id) {
 		_id = id;
 	}
@@ -131,6 +134,10 @@ public class Contact implements Parcelable {
 		_imagePath = imagePath;
 	}
 	
+	public void setColour(int colour) {
+		_colour = colour;
+	}
+	
 	class ContactFirstNameComparator implements Comparator<Contact> {
 		public int compare(Contact contact1, Contact contact2) {
 	        return contact1.getFirstName().toLowerCase().compareTo(contact2.getFirstName().toLowerCase());
@@ -166,6 +173,7 @@ public class Contact implements Parcelable {
 		parcel.writeString(_address);
 		parcel.writeString(_dateOfBirth);
 		parcel.writeString(_imagePath);
+		parcel.writeInt(_colour);
 	}
 	
 	public static final Parcelable.Creator<Contact> CREATOR = new Creator<Contact>() {
@@ -179,6 +187,6 @@ public class Contact implements Parcelable {
 	};
 	
 	public String toString() {
-		return _firstName + " " + _lastName + "\t" + _mobilePhone + "ID: " + _id;
+		return _firstName + " " + _lastName + "\t" + _mobilePhone + " (ID: " + _id + ")";
 	}
 }

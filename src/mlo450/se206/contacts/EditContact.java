@@ -1,5 +1,7 @@
 package mlo450.se206.contacts;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -9,19 +11,24 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+
 /*
  * An activity for editing a single existing Contact.
  * Editable text fields and the ability to load an image from either the phone's gallery, or the camera.
  */
 public class EditContact extends Activity {
+
 	private ImageView displayImage;
 	private Button saveButton;
 	private Button cancelButton;
+	private Button colourButton;
 	private EditText firstName;
 	private EditText lastName;
 	private EditText mobilePhone;
@@ -30,8 +37,9 @@ public class EditContact extends Activity {
 	private EditText email;
 	private EditText address;
 	private EditText dateOfBirth;
-	private Contact currentValues;
 	private Bitmap saveOnTurn;
+	private int colour;
+	private Contact currentValues;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +71,7 @@ public class EditContact extends Activity {
 		String e = currentValues.getEmail();
 		String a = currentValues.getAddress();
 		String dOB = currentValues.getDateOfBirth();
-
+		
 		if (!fN.equals("")) { firstName.setText(fN); }
 		if (!lN.equals("")) { lastName.setText(lN); }
 		if (!mP.equals("")) { mobilePhone.setText(mP); }
@@ -79,17 +87,17 @@ public class EditContact extends Activity {
 		ImageManager imageManager = new ImageManager(EditContact.this);
 		String imagePath = currentValues.getImagePath();
 		Bitmap bm = imageManager.decodeSampledBitmapFromFile(imagePath, 150, 150);
-		
+		Log.d("DEBUG", imagePath);
 		if (imagePath.equals("default")) {
 			bm = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
 		}
 		
 		displayImage.setImageBitmap(bm);
+
 		displayImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
 				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(EditContact.this);
 
 				dialogBuilder.setTitle("Select image source:");
@@ -122,6 +130,7 @@ public class EditContact extends Activity {
 	private void setupButtons() {
 		saveButton = (Button)findViewById(R.id.editContact_button_save);
 		cancelButton = (Button)findViewById(R.id.editContact_button_cancel);
+		colourButton = (Button)findViewById(R.id.editContact_colour);
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -140,6 +149,7 @@ public class EditContact extends Activity {
 				returnIntent.putExtra("address", address.getText().toString());
 				returnIntent.putExtra("dateOfBirth", dateOfBirth.getText().toString());
 				returnIntent.putExtra("imagePath", iP);
+				returnIntent.putExtra("colour", colour);
 				setResult(RESULT_OK,returnIntent);     
 				finish();
 			}
@@ -153,6 +163,52 @@ public class EditContact extends Activity {
 				finish();
 			}
 		});
+
+		colourButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// initialColor is the initially-selected color to be shown in the rectangle on the left of the arrow.
+				// for example, 0xff000000 is black, 0xff0000ff is blue. Please be aware of the initial 0xff which is the alpha.
+				int initialColour = 0xff000000;
+				AmbilWarnaDialog dialog = new AmbilWarnaDialog(EditContact.this, initialColour, new OnAmbilWarnaListener() {
+					@Override
+					public void onOk(AmbilWarnaDialog dialog, int color) {
+						colour = color;
+						colourButton.setBackgroundColor(color);
+					}
+
+					@Override
+					public void onCancel(AmbilWarnaDialog dialog) {
+					}
+				});
+				
+				dialog.show();
+			}
+		});
+		
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
+		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
+
+		switch(requestCode) {
+		case 0:
+			if(resultCode == RESULT_OK){  
+				Uri selectedImage = imageReturnedIntent.getData();
+				displayImage.setImageURI(selectedImage);
+			}
+
+			break; 
+
+		case 1:
+			if(resultCode == RESULT_OK){  
+				Uri selectedImage = imageReturnedIntent.getData();
+				displayImage.setImageURI(selectedImage);
+			}
+			break;
+		}
+
 	}
 
 	@Override

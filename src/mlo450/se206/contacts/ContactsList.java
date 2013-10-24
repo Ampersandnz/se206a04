@@ -151,6 +151,8 @@ public class ContactsList extends Activity {
 			name.setText(displayList.get(position).getFirstName() + " " + displayList.get(position).getLastName());
 			mobilePhone.setText(displayList.get(position).getMobilePhone());
 
+			listItemView.setBackgroundColor(displayList.get(position).getColour());
+			
 			return listItemView;
 		}
 	}
@@ -172,7 +174,7 @@ public class ContactsList extends Activity {
 						data.getStringExtra("mobilePhone"), data.getStringExtra("homePhone"), 
 						data.getStringExtra("workPhone"), data.getStringExtra("email"), 
 						data.getStringExtra("address"), data.getStringExtra("dateOfBirth"),
-						data.getStringExtra("imagePath"));
+						data.getStringExtra("imagePath"), data.getIntExtra("colour", 0xffffffff));
 				adapter.add(contact);
 			}
 		}
@@ -205,7 +207,7 @@ public class ContactsList extends Activity {
 						data.getStringExtra("mobilePhone"), data.getStringExtra("homePhone"), 
 						data.getStringExtra("workPhone"), data.getStringExtra("email"), 
 						data.getStringExtra("address"), data.getStringExtra("dateOfBirth"),
-						data.getStringExtra("imagePath"));
+						data.getStringExtra("imagePath"), data.getIntExtra("colour", 0xffffffff));
 				
 				adapter.add(contact);
 			}

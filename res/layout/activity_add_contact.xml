@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/add_contact" />
+        android:text="@string/addButton" />
 
     <ImageView
         android:id="@+id/addContact_image"
@@ -21,70 +21,101 @@
         android:layout_height="150dp"
         android:contentDescription="@string/hello_world" />
 
-    <EditText
-        android:id="@+id/addContact_firstName"
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:hint="@string/editContact_firstName"
-        android:inputType="textPersonName" />
+        android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/addContact_lastName"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:hint="@string/editContact_lastName"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/addContact_firstName"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:hint="@string/firstName"
+            android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/addContact_mobilePhone"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:hint="@string/editContact_mobilePhone"
-        android:inputType="phone" />
+        <EditText
+            android:id="@+id/addContact_lastName"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:hint="@string/lastName"
+            android:inputType="textPersonName" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/addContact_homePhone"
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:hint="@string/editContact_homePhone"
-        android:inputType="phone" />
+        android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/addContact_workPhone"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:digits="true"
-        android:hint="@string/editContact_workPhone"
-        android:inputType="phone" />
+        <EditText
+            android:id="@+id/addContact_mobilePhone"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:hint="@string/mobilePhone"
+            android:inputType="phone" />
 
-    <EditText
-        android:id="@+id/addContact_email"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:hint="@string/editContact_email"
-        android:inputType="textEmailAddress" />
+        <EditText
+            android:id="@+id/addContact_homePhone"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:hint="@string/homePhone"
+            android:inputType="phone" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/addContact_address"
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:hint="@string/editContact_address"
-        android:inputType="textPostalAddress" />
+        android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/addContact_dateOfBirth"
+        <EditText
+            android:id="@+id/addContact_workPhone"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:digits="true"
+            android:hint="@string/workPhone"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/addContact_email"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/addContact_address"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:hint="@string/address"
+            android:inputType="textPostalAddress" />
+
+        <EditText
+            android:id="@+id/addContact_dateOfBirth"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:hint="@string/dateOfBirth"
+            android:inputType="date" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addContact_colour"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:hint="@string/editContact_dateOfBirth"
-        android:inputType="date" />
+        android:text="@string/colourButton" />
 
     <LinearLayout
         style="?android:attr/buttonBarStyle"
@@ -97,7 +128,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/editContact_button_save" />
+            android:text="@string/saveButton" />
 
         <Button
             android:id="@+id/addContact_button_cancel"
@@ -105,7 +136,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/editContact_button_cancel" />
+            android:text="@string/cancelButton" />
     </LinearLayout>
 
 </LinearLayout>

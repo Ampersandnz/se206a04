@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
-	public static final String TABLE_COMMENTS = "contacts";
+	public static final String TABLE_CONTACTS = "contacts";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_FIRST_NAME = "_firstName";
 	public static final String COLUMN_LAST_NAME = "_lastName";
@@ -18,16 +18,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_ADDRESS = "_address";
 	public static final String COLUMN_DATE_OF_BIRTH = "_dateOfBirth";
 	public static final String COLUMN_IMAGE_PATH = "_imagePath";
+	public static final String COLUMN_COLOUR = "_colour";
 
 	private static final String DATABASE_NAME = "contacts.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 3;
 
 	// Database creation sql statement
-	private static final String DATABASE_CREATE = "create table " + TABLE_COMMENTS + "(" + COLUMN_ID + 
+	private static final String DATABASE_CREATE = "create table " + TABLE_CONTACTS + "(" + COLUMN_ID + 
 			" integer primary key autoincrement, " + COLUMN_FIRST_NAME + " text not null, " + COLUMN_LAST_NAME + 
 			" text not null, " + COLUMN_MOBILE_PHONE + " text not null, " + COLUMN_HOME_PHONE + " text not null, " + 
 			COLUMN_WORK_PHONE + " text not null, " + COLUMN_EMAIL + " text not null, " + COLUMN_ADDRESS + 
-			" text not null, " + COLUMN_DATE_OF_BIRTH + " text not null, " + COLUMN_IMAGE_PATH + " text not null);";
+			" text not null, " + COLUMN_DATE_OF_BIRTH + " text not null, " + COLUMN_IMAGE_PATH + " text not null, " +
+			COLUMN_COLOUR + " integer);";
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(DatabaseHelper.class.getName(),"Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENTS);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
 		onCreate(db);
 	}
 

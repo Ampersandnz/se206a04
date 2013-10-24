@@ -17,7 +17,7 @@ public class ContactsDatasource {
 	private String[] allColumns = { DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_FIRST_NAME, 
 		  DatabaseHelper.COLUMN_LAST_NAME, DatabaseHelper.COLUMN_MOBILE_PHONE, DatabaseHelper.COLUMN_HOME_PHONE, 
 		  DatabaseHelper.COLUMN_WORK_PHONE, DatabaseHelper.COLUMN_EMAIL, DatabaseHelper.COLUMN_ADDRESS, 
-		  DatabaseHelper.COLUMN_DATE_OF_BIRTH, DatabaseHelper.COLUMN_IMAGE_PATH };
+		  DatabaseHelper.COLUMN_DATE_OF_BIRTH, DatabaseHelper.COLUMN_IMAGE_PATH, DatabaseHelper.COLUMN_COLOUR };
 
 	public ContactsDatasource(Context context) {
 		dbHelper = new DatabaseHelper(context);
@@ -32,7 +32,7 @@ public class ContactsDatasource {
 	}
 
 	public Contact createContact(String firstName, String lastName, String mobilePhone, String homePhone, 
-			String workPhone, String email, String address, String dateOfBirth, String imagePath) { 
+			String workPhone, String email, String address, String dateOfBirth, String imagePath, int colour) { 
 
 		if (firstName.equals(null)) { firstName = " "; }
 		if (lastName.equals(null)) { lastName = " "; }
@@ -54,9 +54,10 @@ public class ContactsDatasource {
 	    values.put(DatabaseHelper.COLUMN_ADDRESS, address);
 	    values.put(DatabaseHelper.COLUMN_DATE_OF_BIRTH, dateOfBirth);
 	    values.put(DatabaseHelper.COLUMN_IMAGE_PATH, imagePath);
+	    values.put(DatabaseHelper.COLUMN_COLOUR, colour);
 	    
-	    long insertId = database.insert(DatabaseHelper.TABLE_COMMENTS, null, values);
-	    Cursor cursor = database.query(DatabaseHelper.TABLE_COMMENTS, allColumns, 
+	    long insertId = database.insert(DatabaseHelper.TABLE_CONTACTS, null, values);
+	    Cursor cursor = database.query(DatabaseHelper.TABLE_CONTACTS, allColumns, 
 	    		DatabaseHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
 	    cursor.moveToFirst();
 	    Contact newContact = cursorToContact(cursor);
@@ -68,12 +69,12 @@ public class ContactsDatasource {
 	public void deleteContact(Contact contact) {
 		long id = contact.getId();
 		System.out.println("Contact deleted with id: " + id);
-		database.delete(DatabaseHelper.TABLE_COMMENTS, DatabaseHelper.COLUMN_ID + " = " + id, null);
+		database.delete(DatabaseHelper.TABLE_CONTACTS, DatabaseHelper.COLUMN_ID + " = " + id, null);
 	}
 
 	public List<Contact> getAllContacts() {
 		List<Contact> contacts = new ArrayList<Contact>();
-		Cursor cursor = database.query(DatabaseHelper.TABLE_COMMENTS, allColumns, null, null, null, null, null);
+		Cursor cursor = database.query(DatabaseHelper.TABLE_CONTACTS, allColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 		
 		while (!cursor.isAfterLast()) {
@@ -99,6 +100,7 @@ public class ContactsDatasource {
 	    contact.setAddress(cursor.getString(7));
 	    contact.setDateOfBirth(cursor.getString(8));
 	    contact.setImagePath(cursor.getString(9));
+	    contact.setColour(cursor.getInt(10));
 	    
 	    return contact;
 	}

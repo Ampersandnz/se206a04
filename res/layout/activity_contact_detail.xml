@@ -8,100 +8,224 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ContactDetail" >
-	    
-    <FrameLayout
-        android:layout_width="150dp"
-        android:layout_height="150dp" >
-        
-        <ImageView
-            android:id="@+id/contactDetail_image"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:contentDescription="@string/hello_world" />
-        
-    </FrameLayout>
-    	
-    <TextView
-	    android:id="@+id/contactDetail_firstName"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-        android:layout_gravity="center"/>	
-    	
-	<TextView
-	    android:id="@+id/contactDetail_lastName"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-        android:layout_gravity="center"/>	
-    	
-    <TextView
-	    android:id="@+id/contactDetail_mobilePhone"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-        android:layout_gravity="center"/>	
-    	
-    <TextView
-	    android:id="@+id/contactDetail_homePhone"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-        android:layout_gravity="center"/>	
-    	
-    <TextView
-	    android:id="@+id/contactDetail_workPhone"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-        android:layout_gravity="center"/>	
-	    	
-    <TextView
-	    android:id="@+id/contactDetail_email"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-        android:layout_gravity="center"/>	
-    	
-    <TextView
-	    android:id="@+id/contactDetail_address"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-        android:layout_gravity="center"/>	
-    	
-    <TextView
-	    android:id="@+id/contactDetail_dateOfBirth"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-        android:layout_gravity="center"/>	
-	
+
     <LinearLayout
         android:layout_width="fill_parent"
-	    android:layout_height="0px"
-	    android:layout_weight="1"
-	    android:orientation="horizontal"
-        android:layout_gravity="center" >
-        	
-        	<Button
-	            android:id="@+id/contactDetail_deleteContact"
-	            style="android:attr/buttonBarButtonStyle"
-	            android:layout_width="0px"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="1"
-	            android:text="@string/deleteButton"
-	        	android:layout_gravity="center" />
-        	
-        	<Button
-	            android:id="@+id/contactDetail_editButton"
-	            style="android:attr/buttonBarButtonStyle"
-	            android:layout_width="0px"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="1"
-	            android:text="@string/editButton"
-	        	android:layout_gravity="center" />
-        	
-        	</LinearLayout>
-	
+        android:layout_height="0dip"
+        android:layout_weight="9"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp" >
+
+            <ImageView
+                android:id="@+id/contactDetail_image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/hello_world" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/firstName" />
+
+            <TextView
+                android:id="@+id/contactDetail_firstName"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/lastName" />
+
+            <TextView
+                android:id="@+id/contactDetail_lastName"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/mobilePhone" />
+
+            <TextView
+                android:id="@+id/contactDetail_mobilePhone"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/homePhone" />
+
+            <TextView
+                android:id="@+id/contactDetail_homePhone"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/workPhone" />
+
+            <TextView
+                android:id="@+id/contactDetail_workPhone"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/email" />
+
+            <TextView
+                android:id="@+id/contactDetail_email"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/address" />
+
+            <TextView
+                android:id="@+id/contactDetail_address"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/dateOfBirth" />
+
+            <TextView
+                android:id="@+id/contactDetail_dateOfBirth"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/contactDetail_deleteContact"
+            style="android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/deleteButton" />
+		
+        <Button
+            android:id="@+id/contactDetail_editButton"
+            style="android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/editButton" />
+    </LinearLayout>
+
 </LinearLayout>
